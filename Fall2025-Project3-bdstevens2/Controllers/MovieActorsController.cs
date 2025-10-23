@@ -23,8 +23,11 @@ namespace Fall2025_Project3_bdstevens2.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.MovieActors
-                                                .Include(m => m.Actor)
-                                                .Include(m => m.Movie);
+                .Include(m => m.Actor)
+                .Include(m => m.Movie)
+                .OrderBy(m => m.Movie.Title)  // <-- First sort (by Movie Title)
+                .ThenBy(m => m.Actor.Name);   // <-- Second sort (by Actor Name)
+
             return View(await applicationDbContext.ToListAsync());
         }
 

@@ -32,7 +32,8 @@ namespace Fall2025_Project3_bdstevens2.Controllers
         // GET: Actors
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Actors.ToListAsync());
+            var actors = await _context.Actors.OrderBy(a => a.Name).ToListAsync();
+            return View(actors);
         }
 
         // GET: Actors/Details/5

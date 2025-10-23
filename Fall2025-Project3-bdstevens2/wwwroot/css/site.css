@@ -65,35 +65,32 @@ a {
     }
 
 /* --- Tables --- */
+/* THIS IS THE FIX:
+  We are overriding the Bootstrap 5 CSS variables.
+  This is the only way to reliably beat their styles.
+*/
 .table {
-    /* THIS IS THE CHANGE: The table is now transparent */
-    background-color: transparent;
-    color: #FFFFFF;
+    /* These are the Bootstrap variables for the table */
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #FFFFFF !important;
+    --bs-table-striped-bg: #1A1A1A !important; /* This adds back the subtle stripe */
+    --bs-table-striped-color: #FFFFFF !important;
+    --bs-table-hover-bg: #2a2a2a !important;
+    --bs-table-hover-color: #F5C518 !important;
     border-color: #444;
 }
 
     .table thead th {
         color: #F5C518;
-        background-color: #222222;
+        background-color: transparent !important; /* Make header transparent */
         border-bottom: 2px solid #F5C518;
     }
 
-    .table tbody tr {
-        border-color: #444;
+    .table tbody tr:hover {
+        color: #F5C518 !important; /* Ensures text color changes on hover */
+        cursor: pointer;
     }
 
-        /* This adds the "zebra stripe" */
-        .table tbody tr:nth-child(even) {
-            /* Only the even rows get a background color */
-            background-color: #1A1A1A;
-        }
-
-        /* This adds a hover effect to table rows */
-        .table tbody tr:hover {
-            background-color: #2a2a2a; /* A subtle light gray hover */
-            color: #F5C518; /* Highlight text in gold on hover */
-            cursor: pointer;
-        }
 
 /* --- DataTables Bonus Styling --- */
 .dataTables_wrapper {
@@ -149,7 +146,7 @@ a {
     color: #888;
 }
 
-/* --- Action Link Buttons (This code is correct) --- */
+/* --- Action Link Buttons --- */
 .btn-action {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -177,4 +174,27 @@ a {
 
 .btn-action-delete {
     background-color: #dc3545; /* Bootstrap Red */
+}
+
+/* --- Style for File Input Button --- */
+.btn-gold-file {
+    background-color: #F5C518;
+    color: #121212;
+    border: none;
+    font-weight: bold;
+    padding: 0.375rem 0.75rem; /* Match Bootstrap button padding */
+    border-radius: 0.375rem; /* Match Bootstrap button radius */
+    cursor: pointer;
+    display: inline-block; /* Make it behave like a button */
+    transition: opacity 0.2s ease;
+}
+
+    .btn-gold-file:hover {
+        opacity: 0.8;
+        color: #121212; /* Keep text dark */
+    }
+
+/* This class will hide the real, ugly input */
+.input-file-hidden {
+    display: none;
 }

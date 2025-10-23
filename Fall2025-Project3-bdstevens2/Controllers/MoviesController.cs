@@ -28,7 +28,8 @@ namespace Fall2025_Project3_bdstevens2.Controllers
         // GET: Movies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Movies.ToListAsync());
+            var movies = await _context.Movies.OrderBy(m => m.Title).ToListAsync();
+            return View(movies);
         }
 
         // GET: Movies/Details/5
