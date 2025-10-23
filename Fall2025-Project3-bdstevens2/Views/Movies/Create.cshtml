@@ -1,42 +1,44 @@
 ﻿@model Fall2025_Project3_bdstevens2.ViewModels.MovieCreateViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Movie";
 }
 
-<h1>Create</h1>
-
-<h4>Movie</h4>
+<h1>Create Movie</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="ImdbUrl" class="control-label"></label>
                 <input asp-for="ImdbUrl" class="form-control" />
                 <span asp-validation-for="ImdbUrl" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Genre" class="control-label"></label>
                 <input asp-for="Genre" class="form-control" />
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="ReleaseYear" class="control-label"></label>
                 <input asp-for="ReleaseYear" class="form-control" />
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="PosterFile" class="control-label"></label>
-                <input asp-for="PosterFile" class="form-control" type="file" />
+                <br />
+                <label for="PosterFile" class="btn-gold-file">Choose File</label>
+                <input asp-for="PosterFile" class="input-file-hidden" type="file" />
                 <span asp-validation-for="PosterFile" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -44,10 +46,12 @@
     </div>
 </div>
 
-<div>
+<div style="margin-top: 15px;">
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

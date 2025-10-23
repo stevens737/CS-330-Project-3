@@ -1,52 +1,45 @@
 ﻿@model Fall2025_Project3_bdstevens2.ViewModels.MovieDetailViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Movie Details";
 }
 
-<h1>Details</h1>
+<h1 class="details-title">@Model.Movie.Title</h1>
 
 <div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Movie.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Movie.Title)
-        </dd>
+    <dl class="details-dl">
 
-        <dt class="col-sm-2">
+        <div class="details-center-group">
+            <dt>
+                @Html.DisplayNameFor(model => model.Movie.Genre):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Movie.Genre)
+            </dd>
+            <span style="margin: 0 10px;">|</span> <dt>
+                @Html.DisplayNameFor(model => model.Movie.ReleaseYear):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Movie.ReleaseYear)
+            </dd>
+        </div>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Movie.ImdbUrl)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             <a href="@Model.Movie.ImdbUrl" target="_blank">@Model.Movie.ImdbUrl</a>
         </dd>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Movie.Genre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Movie.Genre)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Movie.ReleaseYear)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Movie.ReleaseYear)
-        </dd>
-
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Movie.Poster)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @if (Model.Movie.Poster != null)
             {
                 string imageBase64 = Convert.ToBase64String(Model.Movie.Poster);
                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                <img src="@imageSrc" alt="Movie Poster" style="max-width: 200px;" />
+                <img src="@imageSrc" alt="Movie Poster" />
             }
             else
             {
@@ -57,32 +50,31 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Movie.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn-action btn-action-edit" asp-action="Edit" asp-route-id="@Model.Movie.Id">Edit</a>
+    <a class="btn-action btn-action-details" asp-action="Index">Back to List</a>
 </div>
 
-<hr />
-<h4>Actors in this Movie</h4>
-@if (Model.Actors.Any())
-{
-    <ul>
-        @foreach (var actor in Model.Actors)
-        {
-            <li>
-                <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.Name</a>
-            </li>
-        }
-    </ul>
-}
-else
-{
-    <p>No actors listed for this movie.</p>
-}
+<h4 class="section-heading">Actors in this Movie</h4>
+<div class="details-list">
+    @if (Model.Actors.Any())
+    {
+        <ul>
+            @foreach (var actor in Model.Actors)
+            {
+                <li>
+                    <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.Name</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No actors listed for this movie.</p>
+    }
+</div>
 
-<hr />
-<h4>AI-Generated Reviews</h4>
-
-<h5>Overall Sentiment Score: @Model.OverallSentiment.ToString("F2")</h5>
+<h4 class="section-heading">AI-Generated Reviews</h4>
+<h4 class="sub-heading">Overall Sentiment Score: @Model.OverallSentiment.ToString("F2")</h4>
 
 <table class="table">
     <thead>

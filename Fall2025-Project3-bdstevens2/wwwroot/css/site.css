@@ -65,12 +65,8 @@ a {
     }
 
 /* --- Tables --- */
-/* THIS IS THE FIX:
-  We are overriding the Bootstrap 5 CSS variables.
-  This is the only way to reliably beat their styles.
-*/
+/* This overrides the Bootstrap 5 CSS variables */
 .table {
-    /* These are the Bootstrap variables for the table */
     --bs-table-bg: transparent !important;
     --bs-table-color: #FFFFFF !important;
     --bs-table-striped-bg: #1A1A1A !important; /* This adds back the subtle stripe */
@@ -143,7 +139,7 @@ a {
     line-height: 60px;
     background-color: #1A1A1A;
     border-top: 1px solid #444;
-    color: #888;
+    color: #F5C518 !important;
 }
 
 /* --- Action Link Buttons --- */
@@ -197,4 +193,137 @@ a {
 /* This class will hide the real, ugly input */
 .input-file-hidden {
     display: none;
+}
+
+/* --- Styling for Details Pages --- */
+
+/* Style the Definition List (dl) */
+.details-dl { /* Add this class to your <dl> tags */
+    background-color: #1A1A1A; /* Dark gray background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 30px; /* Space below the list */
+    border: 1px solid #444; /* Subtle border */
+}
+
+    .details-dl dt { /* Style the 'Term' (label) */
+        color: #F5C518; /* Gold color for labels */
+        font-weight: bold;
+        margin-bottom: 5px; /* Space below label */
+    }
+
+    .details-dl dd { /* Style the 'Definition' (value) */
+        color: #FFFFFF; /* White text for values */
+        margin-left: 0; /* Remove default indentation */
+        margin-bottom: 10px; /* Slightly less space below each item */
+        padding-bottom: 10px; /* Slightly less space inside the item */
+        border-bottom: 1px solid #222; /* Softer separator line */
+    }
+
+        .details-dl dd:last-of-type { /* Remove border from the last item */
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+/* Style the section headings (like "Actors in this Movie", "AI Reviews") */
+.section-heading {
+    color: #F5C518; /* Gold color */
+    margin-top: 30px; /* Space above */
+    margin-bottom: 15px; /* Space below */
+    padding-bottom: 10px; /* Space inside */
+    border-bottom: 2px solid #F5C518; /* Gold underline */
+    font-size: 1.5rem; /* Make it a bit larger */
+}
+
+/* Style the sub-heading (like "Overall Sentiment") */
+.sub-heading {
+    color: #adbac7; /* Lighter gray */
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* Ensure images on details page don't break layout */
+.details-dl img {
+    max-width: 150px; /* Make images smaller on details page */
+    height: auto;
+    border-radius: 4px; /* Slightly rounded corners for images */
+}
+
+/* Style the lists of actors/movies */
+.details-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.details-list li {
+    background-color: #121212; /* Match page background for less boxiness */
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border: none; /* Remove border for less boxiness */
+}
+
+    .details-list li a {
+        color: #F5C518; /* Gold links */
+        font-weight: bold;
+    }
+
+        .details-list li a:hover {
+            color: #ffffff;
+        }
+
+/* --- Additional Styling for Details Pages (IMDb-like top) --- */
+
+.details-title {
+    font-size: 2.5rem; /* Much larger title */
+    font-weight: bold;
+    color: #F5C518; /* Gold */
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+    border-bottom: 1px solid #444; /* Subtle separator */
+    padding-bottom: 15px;
+}
+
+.details-center-group {
+    text-align: center; /* Center the dt and dd inside this */
+    margin-bottom: 15px;
+}
+
+    .details-center-group dt {
+        display: inline-block; /* Allow centering */
+        margin-right: 10px; /* Space between label and value */
+        color: #adbac7; /* Lighter gray for secondary labels */
+        font-weight: normal; /* Less emphasis than gold dt */
+    }
+
+    .details-center-group dd {
+        display: inline-block; /* Allow centering */
+        color: #FFFFFF;
+        margin-bottom: 0; /* Remove extra space */
+        padding-bottom: 0;
+        border-bottom: none; /* Remove separator */
+    }
+
+/* Keep the IMDB link and Poster styles as they were */
+.details-dl dt:has(+ dd a[target="_blank"]), /* Select dt before IMDB link */
+.details-dl dt:has(+ dd img) /* Select dt before Poster/Photo */ {
+    color: #F5C518;
+    font-weight: bold;
+}
+
+.details-dl dd a[target="_blank"], /* Style the IMDB link */
+.details-dl dd img /* Style the Poster/Photo */ {
+    color: #FFFFFF;
+    margin-left: 0;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #222;
+}
+
+.details-dl dd:last-of-type a[target="_blank"],
+.details-dl dd:last-of-type img {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
