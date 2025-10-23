@@ -95,7 +95,18 @@ namespace Fall2025_Project3_bdstevens2.Controllers
             {
                 return NotFound();
             }
-            return View(movie);
+
+            var vm = new ViewModels.MovieEditViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                ImdbUrl = movie.ImdbUrl,
+                Genre = movie.Genre,
+                ReleaseYear = movie.ReleaseYear,
+                ExistingPoster = movie.Poster // Pass the existing poster to the view
+            };
+
+            return View(vm);
         }
 
         // POST: Movies/Edit/5
@@ -103,9 +114,10 @@ namespace Fall2025_Project3_bdstevens2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ImdbUrl,Genre,ReleaseYear,Poster")] Movie movie)
+        public async Task<IActionResult> Edit(int id, ViewModels.MovieEditViewModel vm)
         {
-            if (id != movie.Id)
+            // Make sure the ID from the route matches the ID from the form's hidden field
+            if (id != vm.Id)
             {
                 return NotFound();
             }
@@ -114,12 +126,38 @@ namespace Fall2025_Project3_bdstevens2.Controllers
             {
                 try
                 {
-                    _context.Update(movie);
+                    // Get the *original movie* from the database
+                    var movieToUpdate = await _context.Movies.FindAsync(vm.Id);
+                    if (movieToUpdate == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update its text-based properties
+                    movieToUpdate.Title = vm.Title;
+                    movieToUpdate.ImdbUrl = vm.ImdbUrl;
+                    movieToUpdate.Genre = vm.Genre;
+                    movieToUpdate.ReleaseYear = vm.ReleaseYear;
+
+                    // Check if a *new* poster file was uploaded
+                    if (vm.PosterFile != null && vm.PosterFile.Length > 0)
+                    {
+                        // Convert the new file to byte[]
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await vm.PosterFile.CopyToAsync(memoryStream);
+                            // Set the Poster property to the new byte array
+                            movieToUpdate.Poster = memoryStream.ToArray();
+                        }
+                    }
+
+                    // Save the updated entity
+                    _context.Update(movieToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.Id))
+                    if (!_context.Movies.Any(e => e.Id == vm.Id))
                     {
                         return NotFound();
                     }
@@ -130,7 +168,18 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+
+            // If ModelState is invalid, we must re-populate the ExistingPoster
+            // property, as it's not posted back from the form.
+            if (vm.ExistingPoster == null)
+            {
+                var originalMovie = await _context.Movies.AsNoTracking().FirstOrDefaultAsync(m => m.Id == vm.Id);
+                if (originalMovie != null)
+                {
+                    vm.ExistingPoster = originalMovie.Poster;
+                }
+            }
+            return View(vm);
         }
 
         // GET: Movies/Delete/5
