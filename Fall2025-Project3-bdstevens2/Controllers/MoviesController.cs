@@ -13,10 +13,16 @@ namespace Fall2025_Project3_bdstevens2.Controllers
     public class MoviesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly Services.OpenAIService _openAIService;
+        private readonly VaderSharp2.SentimentIntensityAnalyzer _sentimentAnalyzer;
 
-        public MoviesController(ApplicationDbContext context)
+        public MoviesController(ApplicationDbContext context,
+                                Services.OpenAIService openAIService,
+                                VaderSharp2.SentimentIntensityAnalyzer sentimentAnalyzer)
         {
             _context = context;
+            _openAIService = openAIService;
+            _sentimentAnalyzer = sentimentAnalyzer;
         }
 
         // GET: Movies
@@ -28,19 +34,45 @@ namespace Fall2025_Project3_bdstevens2.Controllers
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var movie = await _context.Movies
+                .Include(m => m.MovieActors)
+                .ThenInclude(ma => ma.Actor)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
+
+            if (movie == null) return NotFound();
+
+            // 1. Get AI Reviews
+            string rawReviews = await _openAIService.GetMovieReviewsAsync(movie.Title);
+            string[] reviewStrings = rawReviews.Split(new[] { "|||" }, StringSplitOptions.RemoveEmptyEntries);
+
+            var reviews = new List<ViewModels.ReviewSentiment>();
+            double totalSentiment = 0;
+
+            // 2. Analyze Sentiment
+            foreach (var reviewStr in reviewStrings)
             {
-                return NotFound();
+                var sentiment = _sentimentAnalyzer.PolarityScores(reviewStr);
+                double score = sentiment.Compound;
+                totalSentiment += score;
+                reviews.Add(new ViewModels.ReviewSentiment
+                {
+                    Text = reviewStr.Trim(),
+                    Sentiment = score
+                });
             }
 
-            return View(movie);
+            // 3. Create ViewModel
+            var vm = new ViewModels.MovieDetailViewModel
+            {
+                Movie = movie,
+                Actors = movie.MovieActors.Select(ma => ma.Actor).ToList(),
+                Reviews = reviews,
+                OverallSentiment = reviews.Count > 0 ? totalSentiment / reviews.Count : 0
+            };
+
+            return View(vm);
         }
 
         // GET: Movies/Create

@@ -7,16 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fall2025_Project3_bdstevens2.Data;
 using Fall2025_Project3_bdstevens2.Models;
+using Fall2025_Project3_bdstevens2.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using VaderSharp2;
+using Fall2025_Project3_bdstevens2.Services;
 
 namespace Fall2025_Project3_bdstevens2.Controllers
 {
     public class ActorsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly OpenAIService _openAIService;
+        private readonly SentimentIntensityAnalyzer _sentimentAnalyzer;
 
-        public ActorsController(ApplicationDbContext context)
+        public ActorsController(ApplicationDbContext context,
+                                OpenAIService openAIService,
+                                SentimentIntensityAnalyzer sentimentAnalyzer)
         {
             _context = context;
+            _openAIService = openAIService;
+            _sentimentAnalyzer = sentimentAnalyzer;
         }
 
         // GET: Actors
@@ -33,14 +43,57 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                 return NotFound();
             }
 
+            // 1. Find the Actor.
+            // We must .Include() the MovieActors join table,
+            // and .ThenInclude() the Movie on the other side.
             var actor = await _context.Actors
+                .Include(a => a.MovieActors)
+                .ThenInclude(ma => ma.Movie)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (actor == null)
             {
                 return NotFound();
             }
 
-            return View(actor);
+            // 2. Call the AI service to get tweets
+            string rawTweets = await _openAIService.GetActorTweetsAsync(actor.Name);
+
+            // 3. Split the raw string into individual tweets
+            string[] tweetStrings = rawTweets.Split(new[] { "|||" }, StringSplitOptions.RemoveEmptyEntries);
+
+            var tweets = new List<TweetSentiment>();
+            double totalSentiment = 0;
+
+            // 4. Loop, analyze, and populate the list
+            foreach (var tweetStr in tweetStrings)
+            {
+                // Get sentiment scores
+                var sentiment = _sentimentAnalyzer.PolarityScores(tweetStr.Trim());
+
+                // Get the main 'Compound' score
+                double score = sentiment.Compound;
+                totalSentiment += score;
+
+                // Add to our ViewModel list
+                tweets.Add(new TweetSentiment
+                {
+                    Text = tweetStr.Trim(),
+                    Sentiment = score
+                });
+            }
+
+            // 5. Populate the final ViewModel
+            var vm = new ActorDetailViewModel
+            {
+                Actor = actor,
+                Movies = actor.MovieActors.Select(ma => ma.Movie).ToList(), // Get the list of movies from the joined data
+                Tweets = tweets,
+                OverallSentiment = tweets.Count > 0 ? (totalSentiment / tweets.Count) : 0 // Calculate average
+            };
+
+            // 6. Return the View with the ViewModel
+            return View(vm);
         }
 
         // GET: Actors/Create

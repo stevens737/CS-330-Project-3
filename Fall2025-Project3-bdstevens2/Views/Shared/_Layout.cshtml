@@ -4,14 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Fall2025_Project3_bdstevens2</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css"
+          integrity="sha384-jJm+JcPAYCcP9kQ4hB6/8S/S9eplT722Q/R/aGInD9PZ/c/h2/gM+u/2M/1eJz"
+          crossorigin="anonymous">
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Fall2025_Project3_bdstevens2.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Fall2025_Project3_bdstevens2</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -21,10 +30,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="Index">Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Actors" asp-action="Index">Actors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="MovieActors" asp-action="Index">Relationships</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -43,9 +62,24 @@
             &copy; 2025 - Fall2025_Project3_bdstevens2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"
+            integrity="sha384-m++3P/TjR/0S0Rfdq/I/Cgflk98P8oYh/T+h2/gM+u/2M/1eJz/bX/6pD5/K78M"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"
+            integrity="sha384-j2x/Cgflk98P8oYh/T+h2/gM+u/2M/1eJz/bX/6pD5/K78MhYj/8N/Q/gSwYQz"
+            crossorigin="anonymous"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

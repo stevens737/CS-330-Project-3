@@ -4,19 +4,16 @@ using Fall2025_Project3_bdstevens2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Fall2025_Project3_bdstevens2.Data.Migrations
+namespace Fall2025_Project3_bdstevens2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251023001517_InitialModels")]
-    partial class InitialModels
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
