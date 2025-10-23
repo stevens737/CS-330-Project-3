@@ -1,17 +1,21 @@
 ﻿@model IEnumerable<Fall2025_Project3_bdstevens2.Models.Actor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Actors";
 }
 
-<h1>Index</h1>
+<h1>Actors</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+
+<table class="table datatable">
     <thead>
         <tr>
+            <th>
+                Photo
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -21,39 +25,37 @@
             <th>
                 @Html.DisplayNameFor(model => model.Age)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImdbUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Photo)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImdbUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Photo != null)
+                    {
+                        string imageBase64 = Convert.ToBase64String(item.Photo);
+                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                        <img src="@imageSrc" alt="Actor Photo" style="max-height: 100px;" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+
+                <td>
+                    <a class="btn-action btn-action-edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn-action btn-action-details" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn-action btn-action-delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

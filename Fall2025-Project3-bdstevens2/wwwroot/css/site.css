@@ -1,104 +1,180 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+/* IMDb Style Theme
+   - Background: #121212 (Black)
+   - Text: #FFFFFF (White)
+   - Accent: #F5C518 (IMDb Gold)
+   - Cards/Tables: #1A1A1A (Dark Gray)
+*/
 
 html {
-  position: relative;
-  min-height: 100%;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #121212; /* Black background */
+    color: #FFFFFF; /* White text */
+    margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
-/* --- Add Your Custom Styles Below This --- */
-
-body {
-    background-color: #22272e; /* Dark background */
-    color: #adbac7; /* Light gray text */
-}
-
-/* Make headings white */
-h1, h2, h3, h4, h5, h6 {
-    color: #ffffff;
-}
-
-/* Style the navigation bar */
+/* --- Navbar --- */
 .navbar {
-    background-color: #1c2128 !important; /* A slightly darker background */
-    border-bottom: 1px solid #444c56;
+    background-color: #1A1A1A !important; /* Dark gray navbar */
+    border-bottom: 1px solid #F5C518; /* Gold border */
 }
 
-    /* Style the navigation links */
-    .navbar .nav-link {
-        color: #adbac7 !important;
+.navbar-brand {
+    color: #F5C518 !important; /* Gold brand text */
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #FFFFFF !important; /* White links */
+}
+
+    .nav-link:hover {
+        color: #F5C518 !important; /* Gold link on hover */
     }
 
-        .navbar .nav-link:hover {
-            color: #ffffff !important;
-        }
+/* --- Headings and Links --- */
+h1, h2, h3, h4, h5, h6 {
+    color: #F5C518; /* Gold headings */
+}
 
-/* Style links */
 a {
-    color: #539bf5;
+    color: #F5C518; /* IMDb Gold */
+    text-decoration: none; /* Remove underline */
 }
 
     a:hover {
-        color: #80b6f7;
+        color: #ffffff; /* White on hover */
+        text-decoration: underline;
     }
 
-/* Style tables for dark mode */
+/* --- Buttons --- */
+.btn-primary {
+    background-color: #F5C518;
+    color: #121212;
+    border: none;
+    font-weight: bold;
+}
+
+    .btn-primary:hover {
+        background-color: #e6b90f;
+        color: #121212;
+    }
+
+/* --- Tables --- */
 .table {
-    color: #adbac7; /* Make table text light */
-    background-color: #2d333b;
-    border-color: #444c56;
+    /* THIS IS THE CHANGE: The table is now transparent */
+    background-color: transparent;
+    color: #FFFFFF;
+    border-color: #444;
 }
 
     .table thead th {
-        background-color: #373e47;
-        color: #ffffff;
-        border-color: #444c56;
+        color: #F5C518;
+        background-color: #222222;
+        border-bottom: 2px solid #F5C518;
     }
 
     .table tbody tr {
-        border-color: #444c56;
+        border-color: #444;
     }
 
-/* Style form inputs */
+        /* This adds the "zebra stripe" */
+        .table tbody tr:nth-child(even) {
+            /* Only the even rows get a background color */
+            background-color: #1A1A1A;
+        }
+
+        /* This adds a hover effect to table rows */
+        .table tbody tr:hover {
+            background-color: #2a2a2a; /* A subtle light gray hover */
+            color: #F5C518; /* Highlight text in gold on hover */
+            cursor: pointer;
+        }
+
+/* --- DataTables Bonus Styling --- */
+.dataTables_wrapper {
+    color: #FFFFFF !important;
+}
+
+.dataTables_filter input, .dataTables_length select {
+    background-color: #222;
+    color: #FFFFFF;
+    border: 1px solid #444;
+}
+
+.page-item.active .page-link {
+    background-color: #F5C518;
+    border-color: #F5C518;
+    color: #121212 !important;
+}
+
+.page-link {
+    background-color: #222;
+    color: #FFFFFF;
+    border: 1px solid #444;
+}
+
+    .page-link:hover {
+        background-color: #333;
+        color: #F5C518;
+    }
+
+/* --- Forms --- */
 .form-control {
-    background-color: #1c2128;
-    color: #adbac7;
-    border: 1px solid #444c56;
+    background-color: #222;
+    color: #FFFFFF;
+    border: 1px solid #444;
 }
 
     .form-control:focus {
-        background-color: #1c2128;
-        color: #adbac7;
-        border-color: #539bf5;
-        box-shadow: 0 0 0 0.25rem rgba(83, 155, 245, 0.25);
+        background-color: #222;
+        color: #FFFFFF;
+        border-color: #F5C518;
+        box-shadow: 0 0 0 0.25rem rgba(245, 197, 24, 0.25);
     }
 
-/* Style buttons */
-.btn-primary {
-    background-color: #377dff;
-    border-color: #377dff;
+/* --- Footer --- */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #1A1A1A;
+    border-top: 1px solid #444;
+    color: #888;
+}
+
+/* --- Action Link Buttons (This code is correct) --- */
+.btn-action {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem; /* Rounded corners */
+    text-decoration: none !important; /* Force no underline */
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #ffffff !important; /* Force white text */
+    margin-right: 5px; /* Add spacing */
+    transition: opacity 0.2s ease;
+}
+
+    .btn-action:hover {
+        opacity: 0.8;
+        color: #ffffff !important;
+    }
+
+.btn-action-edit {
+    background-color: #0d6efd; /* Bootstrap Blue */
+}
+
+.btn-action-details {
+    background-color: #6c757d; /* Bootstrap Gray */
+}
+
+.btn-action-delete {
+    background-color: #dc3545; /* Bootstrap Red */
 }
