@@ -44,9 +44,6 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                 return NotFound();
             }
 
-            // 1. Find the Actor.
-            // We must .Include() the MovieActors join table,
-            // and .ThenInclude() the Movie on the other side.
             var actor = await _context.Actors
                 .Include(a => a.MovieActors)
                 .ThenInclude(ma => ma.Movie)
@@ -57,16 +54,13 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                 return NotFound();
             }
 
-            // 2. Call the AI service to get tweets
             string rawTweets = await _openAIService.GetActorTweetsAsync(actor.Name);
 
-            // 3. Split the raw string into individual tweets
             string[] tweetStrings = rawTweets.Split(new[] { "|||" }, StringSplitOptions.RemoveEmptyEntries);
 
             var tweets = new List<TweetSentiment>();
             double totalSentiment = 0;
 
-            // 4. Loop, analyze, and populate the list
             foreach (var tweetStr in tweetStrings)
             {
                 // Get sentiment scores
@@ -84,16 +78,14 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                 });
             }
 
-            // 5. Populate the final ViewModel
             var vm = new ActorDetailViewModel
             {
                 Actor = actor,
-                Movies = actor.MovieActors.Select(ma => ma.Movie).ToList(), // Get the list of movies from the joined data
+                Movies = actor.MovieActors.Select(ma => ma.Movie).ToList(), 
                 Tweets = tweets,
-                OverallSentiment = tweets.Count > 0 ? (totalSentiment / tweets.Count) : 0 // Calculate average
+                OverallSentiment = tweets.Count > 0 ? (totalSentiment / tweets.Count) : 0 
             };
 
-            // 6. Return the View with the ViewModel
             return View(vm);
         }
 
@@ -127,7 +119,7 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                     using (var memoryStream = new MemoryStream())
                     {
                         await vm.PhotoFile.CopyToAsync(memoryStream);
-                        actor.Photo = memoryStream.ToArray(); // Save as byte[]
+                        actor.Photo = memoryStream.ToArray();
                     }
                 }
 
@@ -135,7 +127,6 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            // If not valid, return the view with the data the user entered
             return View(vm);
         }
 
@@ -199,7 +190,6 @@ namespace Fall2025_Project3_bdstevens2.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Repopulate existing photo if model state is invalid
             if (vm.ExistingPhoto == null)
             {
                 var originalActor = await _context.Actors.AsNoTracking().FirstOrDefaultAsync(a => a.Id == vm.Id);

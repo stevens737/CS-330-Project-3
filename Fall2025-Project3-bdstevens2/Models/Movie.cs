@@ -19,7 +19,6 @@ namespace Fall2025_Project3_bdstevens2.Models
         [Display(Name = "Release Year")]
         public int ReleaseYear { get; set; }
 
-        // This will store the image
         public byte[]? Poster { get; set; }
 
         // Navigation property for the join table

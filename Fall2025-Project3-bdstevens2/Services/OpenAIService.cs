@@ -1,14 +1,13 @@
-﻿// --- Add all of these 'using' statements ---
-using Azure;
-using Azure.AI.OpenAI; // For AzureOpenAIClient and AzureKeyCredential
+﻿using Azure;
+using Azure.AI.OpenAI; 
 using OpenAI;
-using OpenAI.Chat;     // This is for the *base* chat client
+using OpenAI.Chat;     
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
-using System.ClientModel; // <-- ADD THIS for ClientResult
+using System.ClientModel; 
 
-// --- This alias solves the conflicts ---
+
 using OpenAIChat = OpenAI.Chat;
 
 namespace Fall2025_Project3_bdstevens2.Services
@@ -46,12 +45,10 @@ namespace Fall2025_Project3_bdstevens2.Services
                 new OpenAIChat.UserChatMessage(userPrompt)
             };
 
-            // --- FIX #1: MaxTokens is now MaxTokenCount ---
 
-            // --- FIX #2: The response type is ClientResult<T> ---
             ClientResult<OpenAIChat.ChatCompletion> response = await _chatClient.CompleteChatAsync(messages, null);
 
-            // This check is still correct (it's response.Value)
+
             if (response.Value?.Content?.Count > 0)
             {
                 return response.Value.Content[0].Text;

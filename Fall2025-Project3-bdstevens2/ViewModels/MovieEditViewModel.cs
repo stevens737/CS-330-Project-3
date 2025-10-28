@@ -20,10 +20,7 @@ namespace Fall2025_Project3_bdstevens2.ViewModels
         public int ReleaseYear { get; set; }
 
         [Display(Name = "Upload New Poster")]
-        // This is for the *new* file upload
         public IFormFile? PosterFile { get; set; }
-
-        // This is to *display* the current poster
         public byte[]? ExistingPoster { get; set; }
     }
 }

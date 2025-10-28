@@ -17,7 +17,6 @@ namespace Fall2025_Project3_bdstevens2.Models
         [Url]
         public string ImdbUrl { get; set; }
 
-        // This will store the image
         public byte[]? Photo { get; set; }
 
         // Navigation property for the join table
