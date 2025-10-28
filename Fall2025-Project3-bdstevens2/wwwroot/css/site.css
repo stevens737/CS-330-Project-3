@@ -12,42 +12,42 @@ html {
 }
 
 body {
-    background-color: #121212; /* Black background */
-    color: #FFFFFF; /* White text */
-    margin-bottom: 60px;
+    background-color: #121212;
+    color: #FFFFFF;
+    margin-bottom: 60px; /* Space for footer */
 }
 
 /* --- Navbar --- */
 .navbar {
-    background-color: #1A1A1A !important; /* Dark gray navbar */
-    border-bottom: 1px solid #F5C518; /* Gold border */
+    background-color: #1A1A1A !important;
+    border-bottom: 1px solid #F5C518;
 }
 
 .navbar-brand {
-    color: #F5C518 !important; /* Gold brand text */
+    color: #F5C518 !important;
     font-weight: bold;
 }
 
 .nav-link {
-    color: #FFFFFF !important; /* White links */
+    color: #FFFFFF !important;
 }
 
     .nav-link:hover {
-        color: #F5C518 !important; /* Gold link on hover */
+        color: #F5C518 !important;
     }
 
 /* --- Headings and Links --- */
 h1, h2, h3, h4, h5, h6 {
-    color: #F5C518; /* Gold headings */
+    color: #F5C518;
 }
 
 a {
-    color: #F5C518; /* IMDb Gold */
-    text-decoration: none; /* Remove underline */
+    color: #F5C518;
+    text-decoration: none;
 }
 
     a:hover {
-        color: #ffffff; /* White on hover */
+        color: #ffffff;
         text-decoration: underline;
     }
 
@@ -65,56 +65,95 @@ a {
     }
 
 /* --- Tables --- */
-/* This overrides the Bootstrap 5 CSS variables */
+/* Override Bootstrap 5 CSS variables for tables */
 .table {
     --bs-table-bg: transparent !important;
     --bs-table-color: #FFFFFF !important;
-    --bs-table-striped-bg: #1A1A1A !important; 
+    --bs-table-striped-bg: #1A1A1A !important;
     --bs-table-striped-color: #FFFFFF !important;
     --bs-table-hover-bg: #2a2a2a !important;
     --bs-table-hover-color: #F5C518 !important;
     border-color: #444;
+    width: 100% !important; /* Ensure table uses full width */
+    margin-bottom: 1rem;
 }
 
     .table thead th {
         color: #F5C518;
-        background-color: transparent !important; 
+        background-color: transparent !important;
         border-bottom: 2px solid #F5C518;
+        white-space: nowrap; /* Prevent headers from wrapping */
     }
 
     .table tbody tr:hover {
-        color: #F5C518 !important; 
+        color: #F5C518 !important;
         cursor: pointer;
     }
 
-
-/* --- DataTables Bonus Styling --- */
+/* --- DataTables Wrapper and Info --- */
 .dataTables_wrapper {
-    color: #FFFFFF !important;
+    color: #adbac7 !important;
+    padding-top: 15px;
 }
 
-.dataTables_filter input, .dataTables_length select {
-    background-color: #222;
-    color: #FFFFFF;
-    border: 1px solid #444;
+.dataTables_info {
+    color: #adbac7 !important;
+    padding-top: 0.85em;
 }
+
+/* --- DataTables Control Styling --- */
+.dataTables_length label,
+.dataTables_filter label {
+    color: #adbac7 !important;
+    margin-bottom: 10px;
+}
+
+.dataTables_length select {
+    background-color: #222 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #444 !important;
+    border-radius: 4px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+}
+
+.dataTables_filter input {
+    background-color: #222 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #444 !important;
+    border-radius: 4px;
+    margin-left: 5px;
+    padding: 0.375rem 0.75rem;
+}
+
+.page-item .page-link {
+    background-color: #222 !important;
+    color: #adbac7 !important;
+    border: 1px solid #444 !important;
+}
+
+    .page-item .page-link:hover {
+        background-color: #333 !important;
+        color: #F5C518 !important;
+        border-color: #555 !important;
+    }
 
 .page-item.active .page-link {
-    background-color: #F5C518;
-    border-color: #F5C518;
+    background-color: #F5C518 !important;
+    border-color: #F5C518 !important;
     color: #121212 !important;
 }
 
-.page-link {
-    background-color: #222;
-    color: #FFFFFF;
-    border: 1px solid #444;
+.page-item.disabled .page-link {
+    background-color: #1A1A1A !important;
+    color: #666 !important;
+    border-color: #444 !important;
 }
 
-    .page-link:hover {
-        background-color: #333;
-        color: #F5C518;
-    }
+.dataTables_paginate {
+    padding-top: 0.5em;
+}
 
 /* --- Forms --- */
 .form-control {
@@ -136,7 +175,7 @@ a {
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px;
+    line-height: 60px; /* Footer height */
     background-color: #1A1A1A;
     border-top: 1px solid #444;
     color: #F5C518 !important;
@@ -146,13 +185,14 @@ a {
 .btn-action {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem; /* Rounded corners */
-    text-decoration: none !important; 
+    border-radius: 0.5rem;
+    text-decoration: none !important;
     font-size: 0.8rem;
     font-weight: bold;
     color: #ffffff !important;
-    margin-right: 5px; /* Add spacing */
+    margin-right: 5px;
     transition: opacity 0.2s ease;
+    white-space: nowrap;
 }
 
     .btn-action:hover {
@@ -161,15 +201,15 @@ a {
     }
 
 .btn-action-edit {
-    background-color: #0d6efd; /* Bootstrap Blue */
+    background-color: #0d6efd;
 }
 
 .btn-action-details {
-    background-color: #6c757d; /* Bootstrap Gray */
+    background-color: #6c757d;
 }
 
 .btn-action-delete {
-    background-color: #dc3545; /* Bootstrap Red */
+    background-color: #dc3545;
 }
 
 /* --- Style for File Input Button --- */
@@ -178,94 +218,87 @@ a {
     color: #121212;
     border: none;
     font-weight: bold;
-    padding: 0.375rem 0.75rem; 
-    border-radius: 0.375rem; 
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
     cursor: pointer;
-    display: inline-block; /* Make it behave like a button */
+    display: inline-block;
     transition: opacity 0.2s ease;
 }
 
     .btn-gold-file:hover {
         opacity: 0.8;
-        color: #121212; /* Keep text dark */
+        color: #121212;
     }
 
-/* This class will hide the real, ugly input */
 .input-file-hidden {
     display: none;
 }
 
 /* --- Styling for Details Pages --- */
-
-/* Style the Definition List (dl) */
-.details-dl { /* Add this class to your <dl> tags */
-    background-color: #1A1A1A; /* Dark gray background */
+.details-dl {
+    background-color: #1A1A1A;
     padding: 20px;
-    border-radius: 8px; /* Rounded corners */
-    margin-bottom: 30px; /* Space below the list */
-    border: 1px solid #444; /* Subtle border */
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid #444;
 }
 
-    .details-dl dt { /* Style the 'Term' (label) */
-        color: #F5C518; /* Gold color for labels */
+    .details-dl dt {
+        color: #F5C518;
         font-weight: bold;
-        margin-bottom: 5px; /* Space below label */
+        margin-bottom: 5px;
     }
 
-    .details-dl dd { /* Style the 'Definition' (value) */
-        color: #FFFFFF; /* White text for values */
-        margin-left: 0; /* Remove default indentation */
-        margin-bottom: 10px; /* Slightly less space below each item */
-        padding-bottom: 10px; /* Slightly less space inside the item */
-        border-bottom: 1px solid #222; /* Softer separator line */
+    .details-dl dd {
+        color: #FFFFFF;
+        margin-left: 0;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #222;
     }
 
-        .details-dl dd:last-of-type { /* Remove border from the last item */
+        .details-dl dd:last-of-type {
             margin-bottom: 0;
             padding-bottom: 0;
             border-bottom: none;
         }
 
-/* Style the section headings (like "Actors in this Movie", "AI Reviews") */
 .section-heading {
-    color: #F5C518; /* Gold color */
-    margin-top: 30px; /* Space above */
-    margin-bottom: 15px; /* Space below */
-    padding-bottom: 10px; /* Space inside */
-    border-bottom: 2px solid #F5C518; /* Gold underline */
-    font-size: 1.5rem; /* Make it a bit larger */
+    color: #F5C518;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #F5C518;
+    font-size: 1.5rem;
 }
 
-/* Style the sub-heading (like "Overall Sentiment") */
 .sub-heading {
-    color: #adbac7; /* Lighter gray */
+    color: #adbac7;
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
-/* Ensure images on details page don't break layout */
 .details-dl img {
-    max-width: 150px; /* Make images smaller on details page */
+    max-width: 150px;
     height: auto;
-    border-radius: 4px; /* Slightly rounded corners for images */
+    border-radius: 4px;
 }
 
-/* Style the lists of actors/movies */
 .details-list ul {
     list-style: none;
     padding-left: 0;
 }
 
 .details-list li {
-    background-color: #121212; /* Match page background for less boxiness */
+    background-color: #121212;
     padding: 10px 15px;
     margin-bottom: 8px;
     border-radius: 4px;
-    border: none; /* Remove border for less boxiness */
+    border: none;
 }
 
     .details-list li a {
-        color: #F5C518; /* Gold links */
+        color: #F5C518;
         font-weight: bold;
     }
 
@@ -273,47 +306,45 @@ a {
             color: #ffffff;
         }
 
-/* --- Additional Styling for Details Pages (IMDb-like top) --- */
-
+/* --- Styling for Details Pages (IMDb-like top) --- */
 .details-title {
-    font-size: 2.5rem; /* Much larger title */
+    font-size: 2.5rem;
     font-weight: bold;
-    color: #F5C518; /* Gold */
-    text-align: center; /* Center the title */
-    margin-bottom: 20px; /* Space below the title */
-    border-bottom: 1px solid #444; /* Subtle separator */
+    color: #F5C518;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #444;
     padding-bottom: 15px;
 }
 
 .details-center-group {
-    text-align: center; /* Center the dt and dd inside this */
+    text-align: center;
     margin-bottom: 15px;
 }
 
     .details-center-group dt {
-        display: inline-block; /* Allow centering */
-        margin-right: 10px; /* Space between label and value */
-        color: #adbac7; /* Lighter gray for secondary labels */
-        font-weight: normal; /* Less emphasis than gold dt */
+        display: inline-block;
+        margin-right: 10px;
+        color: #adbac7;
+        font-weight: normal;
     }
 
     .details-center-group dd {
-        display: inline-block; /* Allow centering */
+        display: inline-block;
         color: #FFFFFF;
-        margin-bottom: 0; /* Remove extra space */
+        margin-bottom: 0;
         padding-bottom: 0;
-        border-bottom: none; /* Remove separator */
+        border-bottom: none;
     }
 
-/* Keep the IMDB link and Poster styles as they were */
-.details-dl dt:has(+ dd a[target="_blank"]), /* Select dt before IMDB link */
-.details-dl dt:has(+ dd img) /* Select dt before Poster/Photo */ {
+.details-dl dt:has(+ dd a[target="_blank"]),
+.details-dl dt:has(+ dd img) {
     color: #F5C518;
     font-weight: bold;
 }
 
-.details-dl dd a[target="_blank"], /* Style the IMDB link */
-.details-dl dd img /* Style the Poster/Photo */ {
+.details-dl dd a[target="_blank"],
+.details-dl dd img {
     color: #FFFFFF;
     margin-left: 0;
     margin-bottom: 15px;
